@@ -3,7 +3,11 @@ module ArrayExtension
 	def where(args)
 		data = self
 		args.each do |key, value|
-			data.select! { |obj| args[key] == obj[key] }
+			if value.is_a? Regexp
+				data.select! { |obj| args[key] =~ obj[key] }
+			else 
+				data.select! { |obj| args[key] == obj[key] }
+			end
 		end
 		data  
 	end
