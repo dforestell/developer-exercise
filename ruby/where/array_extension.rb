@@ -1,6 +1,6 @@
 module ArrayExtension
 	
-	def where()
+	def where(args)
 	end
 
 end
