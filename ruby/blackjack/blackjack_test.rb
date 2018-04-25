@@ -115,6 +115,14 @@ class GameTest < Minitest::Test
     assert_kind_of String , @game.deal_recap
   end
 
+  def test_game_over_if_dealer_busts
+    @game2 = Game.new
+    @game2.dealer_hand.cards << Card.new(:clubs, :five, 5)
+    @game2.dealer_hand.cards << Card.new(:spades, :ten, 10)
+    @game2.dealer_hand.cards << Card.new(:clubs, :seven, 7)
+    assert_equal true, @game2.game_over?    
+  end
+
   def test_game_over_if_player_busts
     @game2 = Game.new
     @game2.player_hand.cards << Card.new(:clubs, :five, 5)
