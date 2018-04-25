@@ -12,9 +12,45 @@
 <body>
   <div id="quotes"></div>
   <script type="text/babel">
+    class QuoteList extends React.Component{
+  constructor()
+  {
+    super();
+    this.state={
+      data: [],
+    }
+  }
+
+  componentDidMount()
+  {
+    fetch('https://gist.githubusercontent.com/anonymous/8f61a8733ed7fa41c4ea/raw/1e90fd2741bb6310582e3822f59927eb535f6c73/quotes.json')
+    .then((response) => response.json())
+    .then((response)=>{
+      console.log(response)
+      this.setState({
+        data:response,
+      })
+    })
+  }
+
+  render() {
+  const list = this.state.data.map(data => {
+    return (
+      <li> { data.quote } </li>
+    )
+  })
+    return(
+        <ul>
+          { list }
+        </ul> 
+    )
+  }
+}
+
     ReactDOM.render(
       <div>
         <h1>Quotes</h1>
+        <QuoteList/>
       </div>,
       document.getElementById('quotes')
     );
