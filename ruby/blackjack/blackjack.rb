@@ -69,5 +69,6 @@ class Hand
   end
 
   def blackjack?
+    self.value == 21 && @cards.length == 2
   end
 end
