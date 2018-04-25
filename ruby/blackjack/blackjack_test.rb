@@ -136,4 +136,20 @@ class GameTest < Minitest::Test
     @game2.player_hand.cards << Card.new(:spades, :ten, 10)
     assert_equal false, @game2.game_over?
   end
+
+  def test_player_hits_on_15
+    @game2 = Game.new
+    @game2.player_hand.cards << Card.new(:clubs, :five, 5)
+    @game2.player_hand.cards << Card.new(:spades, :ten, 10)
+    @game2.player_turn
+    refute_equal 2, @game2.player_hand.cards.length 
+  end
+
+  def test_player_wont_hit_on_20
+    @game2 = Game.new
+    @game2.player_hand.cards << Card.new(:clubs, :ten, 10)
+    @game2.player_hand.cards << Card.new(:spades, :ten, 10)
+    @game2.player_turn
+    assert_equal 2, @game2.player_hand.cards.length 
+  end
 end

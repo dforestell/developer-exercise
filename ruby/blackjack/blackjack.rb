@@ -127,15 +127,15 @@ class Game
 
   def play
     start
+    player_turn
+    dealer_turn if game_over? == false
+  end
+  
+  def player_turn
     until @player_hand.value >= 16
       hit(@player_hand)
     end
-
     player_status
-
-    if game_over? == false
-      dealer_turn
-    end
   end
 
   def player_status
