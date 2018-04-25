@@ -65,10 +65,10 @@ class Hand
   end
 
   def bust?
-    self.value > 21
+    value > 21
   end
 
   def blackjack?
-    self.value == 21 && @cards.length == 2
+    value == 21 && @cards.length == 2
   end
 end
