@@ -102,4 +102,14 @@ class Game
   def hit(hand)
     hand.cards << @deck.deal_card
   end
+
+  def game_over?
+    if @player_hand.blackjack? || @player_hand.bust?
+      true
+    elsif @dealer_hand.value >= 17
+      true
+    else
+      false
+    end
+  end
 end

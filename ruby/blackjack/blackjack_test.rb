@@ -113,7 +113,41 @@ class GameTest < Minitest::Test
 
   def test_deal_recap_prints_string_commentary
     assert_kind_of String , @game.deal_recap
-
   end
 
+  def test_game_over_if_player_busts
+    @game2 = Game.new
+    @game2.player_hand.cards << Card.new(:clubs, :five, 5)
+    @game2.player_hand.cards << Card.new(:spades, :ten, 10)
+    @game2.player_hand.cards << Card.new(:clubs, :seven, 7)
+    assert_equal true, @game2.game_over?    
+  end
+
+  def test_game_over_if_player_dealt_blackjack
+    @game2 = Game.new
+    @game2.player_hand.cards << Card.new(:clubs, :ace, [1,11])
+    @game2.player_hand.cards << Card.new(:spades, :ten, 10)
+    assert_equal true, @game2.game_over?
+  end
+
+  def test_game_not_over_if_player_has_less_than_21
+    @game2 = Game.new
+    @game2.player_hand.cards << Card.new(:clubs, :five, 5)
+    @game2.player_hand.cards << Card.new(:spades, :ten, 10)
+    assert_equal false, @game2.game_over?
+  end
+
+  def test_game_over_if_dealer_at_17
+    @game2 = Game.new
+    @game2.dealer_hand.cards << Card.new(:spades, :ten, 10)
+    @game2.dealer_hand.cards << Card.new(:clubs, :seven, 7)
+    assert_equal true, @game2.game_over?
+  end
+
+  def test_game_not_over_if_dealer_less_17
+    @game2 = Game.new
+    @game2.dealer_hand.cards << Card.new(:spades, :ten, 10)
+    @game2.dealer_hand.cards << Card.new(:clubs, :five, 5)
+    assert_equal false, @game2.game_over?
+  end
 end
