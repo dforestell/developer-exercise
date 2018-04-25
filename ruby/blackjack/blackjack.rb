@@ -65,5 +65,6 @@ class Hand
   end
 
   def bust?
+    self.value > 21
   end
 end
