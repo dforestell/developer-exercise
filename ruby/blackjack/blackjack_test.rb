@@ -110,4 +110,10 @@ class GameTest < Minitest::Test
     @game.hit(@game.dealer_hand)
     assert_equal 3, @game.dealer_hand.cards.length
   end
+
+  def test_deal_recap_prints_string_commentary
+    assert_kind_of String , @game.deal_recap
+
+  end
+
 end

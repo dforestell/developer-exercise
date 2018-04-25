@@ -79,6 +79,7 @@ end
 
 class Game
   attr_accessor :player_hand, :dealer_hand, :dealer_show_card
+  
   def initialize
     @player_hand = Hand.new
     @dealer_hand = Hand.new
@@ -94,6 +95,10 @@ class Game
     @dealer_show_card = @dealer_hand.cards[-1]
   end
 
+  def deal_recap
+    p "Player was dealt a #{@player_hand.cards[0].string_name} and #{@player_hand.cards[1].string_name}"
+    p "Dealer has #{@dealer_show_card.string_name} showing"
+  end
   def hit(hand)
     hand.cards << @deck.deal_card
   end
