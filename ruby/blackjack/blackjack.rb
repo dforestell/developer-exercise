@@ -93,5 +93,6 @@ class Game
   end
 
   def hit(hand)
+    hand.cards << @deck.deal_card
   end
 end

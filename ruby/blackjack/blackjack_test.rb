@@ -101,8 +101,13 @@ class GameTest < Minitest::Test
   	assert_equal 2, @game.dealer_hand.cards.length
   end
 
-  def test_hit_adds_one_card_to_hand
-    @game.hit(@player_hand)
+  def test_hit_adds_one_card_to_player_hand
+    @game.hit(@game.player_hand)
     assert_equal 3, @game.player_hand.cards.length
+  end
+
+  def test_hit_adds_one_card_to_dealer_hand
+    @game.hit(@game.dealer_hand)
+    assert_equal 3, @game.dealer_hand.cards.length
   end
 end
