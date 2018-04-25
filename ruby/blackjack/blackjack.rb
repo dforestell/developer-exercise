@@ -118,7 +118,7 @@ class Game
 
 
   def game_over?
-    if @player_hand.blackjack? || @player_hand.bust?
+    if @player_hand.blackjack? || @player_hand.bust? || @dealer_hand.bust?
       true
     else
       false
@@ -129,6 +129,7 @@ class Game
     start
     player_turn
     dealer_turn if game_over? == false
+    winner? if game_over? == false
   end
   
   def player_turn
@@ -144,7 +145,7 @@ class Game
     elsif @player_hand.blackjack?
       p "BLACKJACK, PLAYER WINS"
     else
-      p "player stays with #{@player_hand.value}....Dealers turn"
+      p "Player stays with #{@player_hand.value}....Dealers turn"
     end
   end
 
@@ -153,9 +154,9 @@ class Game
       p "Player wins, Dealer bust with #{@dealer_hand.value}"
     else
       p "Dealer Stays with #{@dealer_hand.value}"
-      winner?
     end
   end
+
   def dealer_turn
     p "Dealer flipped over a #{@dealer_hand.cards[0].string_name}"
     until @dealer_hand.value >= 17
