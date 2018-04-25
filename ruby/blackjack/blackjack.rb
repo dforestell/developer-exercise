@@ -78,11 +78,12 @@ class Hand
 end
 
 class Game
-  attr_accessor :player_hand, :dealer_hand
+  attr_accessor :player_hand, :dealer_hand, :dealer_show_card
   def initialize
     @player_hand = Hand.new
     @dealer_hand = Hand.new
     @deck = Deck.new
+    @dealer_show_card = nil
   end
 
   def start
@@ -90,6 +91,7 @@ class Game
       @player_hand.cards << @deck.deal_card
       @dealer_hand.cards << @deck.deal_card
     end
+    @dealer_show_card = @dealer_hand.cards[-1]
   end
 
   def hit(hand)
