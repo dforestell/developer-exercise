@@ -91,4 +91,7 @@ class Game
       @dealer_hand.cards << @deck.deal_card
     end
   end
+
+  def hit(hand)
+  end
 end

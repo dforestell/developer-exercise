@@ -93,12 +93,16 @@ end
 class GameTest < Minitest::Test
   def setup
     @game = Game.new
+    @game.start 
   end
 
   def test_both_hands_start_with_2_cards
-  	@game.start 
   	assert_equal 2, @game.player_hand.cards.length
   	assert_equal 2, @game.dealer_hand.cards.length
+  end
 
+  def test_hit_adds_one_card_to_hand
+    @game.hit(@player_hand)
+    assert_equal 3, @game.player_hand.cards.length
   end
 end
