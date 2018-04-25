@@ -86,6 +86,9 @@ class Game
   end
 
   def start
-    
+    2.times do
+      @player_hand.cards << @deck.deal_card
+      @dealer_hand.cards << @deck.deal_card
+    end
   end
 end
