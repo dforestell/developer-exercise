@@ -104,9 +104,7 @@ class Game
   end
 
   def game_over?
-    if @player_hand.blackjack? || @player_hand.bust?
-      true
-    elsif @dealer_hand.value >= 17
+    if @player_hand.blackjack? || @player_hand.bust? || @dealer_hand.value >= 17
       true
     else
       false
