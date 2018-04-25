@@ -51,5 +51,17 @@ class Hand
   end
 
   def value
+    current_value = 0
+    @cards.each do |card|
+      if card.value.kind_of?(Array)
+        ace_value = 11
+        ace_value = 1 if current_value + ace_value > 21
+
+        current_value += ace_value
+      else
+        current_value += card.value
+      end
+    end
+    current_value
   end
 end
