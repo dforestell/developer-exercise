@@ -131,27 +131,46 @@ class Game
       hit(@player_hand)
     end
 
-    status
+    player_status
 
     if game_over? == false
       dealer_turn
     end
   end
 
-  def status
+  def player_status
     if @player_hand.bust?
       p "DEALER WINS player bust with #{@player_hand.value}"
     elsif @player_hand.blackjack?
       p "BLACKJACK, PLAYER WINS"
     else
-      p "player stays with #{@player_hand.value}"
+      p "player stays with #{@player_hand.value}....Dealers turn"
     end
   end
 
+  def dealer_status
+    if @dealer_hand.bust?
+      p "Player wins, Dealer bust with #{@dealer_hand.value}"
+    else
+      p "Dealer Stays with #{@dealer_hand.value}"
+      winner?
+    end
+  end
   def dealer_turn
     p "Dealer flipped over a #{@dealer_hand.cards[0].string_name}"
     until @dealer_hand.value >= 17
       hit(@dealer_hand)
+    end
+    dealer_status
+  end
+  
+  def winner?
+    if @player_hand.value > @dealer_hand.value
+      p "Player wins #{@player_hand.value} to #{@dealer_hand.value}"
+    elsif @player_hand.value == @dealer_hand.value
+      p "We have a tie at #{@player_hand.value}"
+    else
+      p "Dealer Wins #{@dealer_hand.value} to #{@player_hand.value}"
     end
   end
 end
