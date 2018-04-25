@@ -93,6 +93,8 @@ class Game
       @dealer_hand.cards << @deck.deal_card
     end
     @dealer_show_card = @dealer_hand.cards[-1]
+    deal_recap
+    play
   end
 
   def deal_recap
@@ -100,14 +102,50 @@ class Game
     p "Dealer has #{@dealer_show_card.string_name} showing"
   end
   def hit(hand)
-    hand.cards << @deck.deal_card
+    new_card = @deck.deal_card
+    hand.cards << new_card
+    if hand == @player_hand
+      p "Player hits and was delt #{new_card.string_name}"
+    else
+      p "Dealer hits and was delt #{new_card.string_name}"
+    end
   end
 
+
   def game_over?
-    if @player_hand.blackjack? || @player_hand.bust? || @dealer_hand.value >= 17
+    if @player_hand.blackjack? || @player_hand.bust?
       true
     else
       false
+    end
+  end
+
+  def play
+    until @player_hand.value >= 16
+      hit(@player_hand)
+    end
+
+    status
+
+    if game_over? == false
+      dealer_turn
+    end
+  end
+
+  def status
+    if @player_hand.bust?
+      p "DEALER WINS player bust with #{@player_hand.value}"
+    elsif @player_hand.blackjack?
+      p "BLACKJACK, PLAYER WINS"
+    else
+      p "player stays with #{@player_hand.value}"
+    end
+  end
+
+  def dealer_turn
+    p "Dealer flipped over a #{@dealer_hand.cards[0].string_name}"
+    until @dealer_hand.value >= 17
+      hit(@dealer_hand)
     end
   end
 end
