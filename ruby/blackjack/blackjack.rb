@@ -56,7 +56,9 @@ class Hand
 
   def value
     current_value = 0
-    @cards.each do |card|
+    #sort cards by name descending so that ace can take appropriate value
+    sorted_cards = @cards.sort_by { |card| card.name }.reverse
+    sorted_cards.each do |card|
       if card.value.kind_of?(Array)
         ace_value = 11
         ace_value = 1 if current_value + ace_value > 21
@@ -94,7 +96,6 @@ class Game
     end
     @dealer_show_card = @dealer_hand.cards[-1]
     deal_recap
-    play
   end
 
   def deal_recap
@@ -121,6 +122,7 @@ class Game
   end
 
   def play
+    start
     until @player_hand.value >= 16
       hit(@player_hand)
     end

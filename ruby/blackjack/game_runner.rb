@@ -1,4 +1,4 @@
 require_relative 'blackjack.rb'
 
 @game = Game.new
-@game.start
+@game.play
