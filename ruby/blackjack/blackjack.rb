@@ -105,10 +105,14 @@ class Game
   def hit(hand)
     new_card = @deck.deal_card
     hand.cards << new_card
+    hit_recap(hand)
+  end
+   
+  def hit_recap(hand)
     if hand == @player_hand
-      p "Player hits and was delt #{new_card.string_name}"
+      p "Player hits and was delt #{hand.cards[-1].string_name}"
     else
-      p "Dealer hits and was delt #{new_card.string_name}"
+      p "Dealer hits and was delt #{hand.cards[-1].string_name}"
     end
   end
 
