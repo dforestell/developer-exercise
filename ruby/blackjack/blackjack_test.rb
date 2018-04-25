@@ -62,4 +62,13 @@ class HandTest < Minitest::Test
   	@hand.cards << Card.new(:spades, :ace, [1,11])
   	assert_equal 21, @hand.value
   end
+
+  def test_hand_bust_when_value_greater_than_21
+  	@hand.cards << Card.new(:clubs, :ten, 10)
+  	@hand.cards << Card.new(:spades, :ten, 10)
+  	assert_equal false, @hand.bust?
+
+  	@hand.cards << Card.new(:clubs, :five, 5)
+  	assert_equal true, @hand.bust?
+  end
 end
