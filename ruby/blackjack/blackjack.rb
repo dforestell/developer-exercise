@@ -67,4 +67,7 @@ class Hand
   def bust?
     self.value > 21
   end
+
+  def blackjack?
+  end
 end

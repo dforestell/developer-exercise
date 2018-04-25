@@ -71,4 +71,17 @@ class HandTest < Minitest::Test
   	@hand.cards << Card.new(:clubs, :five, 5)
   	assert_equal true, @hand.bust?
   end
+
+  def test_2_card_hand_with_value_of_21_is_blackjack
+  	@hand.cards << Card.new(:clubs, :ace, [1,11])
+  	@hand.cards << Card.new(:spades, :ten, 10)
+  	assert_equal true, @hand.blackjack?
+  end
+
+  def test_hand_of_more_than_2_cards_not_blackjack
+  	@hand.cards << Card.new(:clubs, :five, 5)
+  	@hand.cards << Card.new(:spades, :ten, 10)
+  	@hand.cards << Card.new(:clubs, :six, 6)
+  	assert_equal false, @hand.blackjack?
+  end
 end
