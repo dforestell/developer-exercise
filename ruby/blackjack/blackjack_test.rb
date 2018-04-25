@@ -16,6 +16,10 @@ class CardTest < Minitest::Test
   def test_card_value_is_correct
     assert_equal @card.value, 10
   end
+
+  def test_card_can_say_string_name
+  	assert_equal "ten of hearts", @card.string_name
+  end
 end
 
 class DeckTest < Minitest::Test

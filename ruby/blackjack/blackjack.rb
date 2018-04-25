@@ -4,6 +4,10 @@ class Card
   def initialize(suite, name, value)
     @suite, @name, @value = suite, name, value
   end
+
+  def string_name
+    
+  end
 end
 
 class Deck
@@ -70,5 +74,13 @@ class Hand
 
   def blackjack?
     value == 21 && @cards.length == 2
+  end
+end
+
+class Game
+  def initialize
+    @player_hand = Hand.new
+    @dealer_hand = Hand.new
+    @deck = Deck.new
   end
 end
