@@ -89,3 +89,16 @@ class HandTest < Minitest::Test
   	assert_equal false, @hand.blackjack?
   end
 end
+
+class GameTest < Minitest::Test
+  def setup
+    @game = Game.new
+  end
+
+  def test_both_hands_start_with_2_cards
+  	@game.start 
+  	assert_equal 2, @game.player_hand.cards.length
+  	assert_equal 2, @game.dealer_hand.cards.length
+
+  end
+end

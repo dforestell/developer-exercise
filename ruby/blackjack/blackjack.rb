@@ -78,9 +78,14 @@ class Hand
 end
 
 class Game
+  attr_accessor :player_hand, :dealer_hand
   def initialize
     @player_hand = Hand.new
     @dealer_hand = Hand.new
     @deck = Deck.new
+  end
+
+  def start
+    
   end
 end
