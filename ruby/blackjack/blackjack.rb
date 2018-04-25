@@ -6,7 +6,7 @@ class Card
   end
 
   def string_name
-    
+    "#{@name.to_s} of #{@suite.to_s}"
   end
 end
 
