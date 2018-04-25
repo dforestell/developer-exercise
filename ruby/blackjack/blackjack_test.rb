@@ -37,3 +37,29 @@ class DeckTest < Minitest::Test
     assert_equal @deck.playable_cards.size, 52
   end
 end
+
+class HandTest < Minitest::Test
+  def setup
+    @hand = Hand.new
+  end
+
+  def test_value_sums_correclty
+  	@hand.cards << Card.new(:clubs, :ten, 10)
+  	@hand.cards << Card.new(:spades, :ten, 10)
+  	assert_equal 20, @hand.value
+  end
+
+  def test_ace_knows_when_11
+  	@hand.cards << Card.new(:clubs, :ten, 10)
+  	@hand.cards << Card.new(:spades, :ace, [1,11])
+  	assert_equal 21, @hand.value
+
+  end
+
+  def test_ace_knows_when_1
+  	@hand.cards << Card.new(:clubs, :ten, 10)
+  	@hand.cards << Card.new(:spades, :ten, 10)
+  	@hand.cards << Card.new(:spades, :ace, [1,11])
+  	assert_equal 21, @hand.value
+  end
+end

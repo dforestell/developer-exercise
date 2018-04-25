@@ -49,4 +49,7 @@ class Hand
   def initialize
     @cards = []
   end
+
+  def value
+  end
 end
