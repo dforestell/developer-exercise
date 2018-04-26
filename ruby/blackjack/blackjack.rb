@@ -88,7 +88,15 @@ class Game
     @deck = Deck.new
     @dealer_show_card = nil
   end
-
+  
+  def play
+    start
+    deal_recap
+    player_turn
+    dealer_turn if game_over? == false
+    winner? if game_over? == false
+  end
+ 
   def start
     2.times do
       @player_hand.cards << @deck.deal_card
@@ -97,18 +105,11 @@ class Game
     @dealer_show_card = @dealer_hand.cards[-1]
   end
 
-  def play
-    start
-    deal_recap
-    player_turn
-    dealer_turn if game_over? == false
-    winner? if game_over? == false
-  end
-
   def deal_recap
     p "Player was dealt a #{@player_hand.cards[0].string_name} and #{@player_hand.cards[1].string_name}"
     p "Dealer has #{@dealer_show_card.string_name} showing"
   end
+
   def hit(hand)
     new_card = @deck.deal_card
     hand.cards << new_card
