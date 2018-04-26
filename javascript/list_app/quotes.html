@@ -2,6 +2,7 @@
                     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+   <link rel="stylesheet" href="app.css">
   <title>List App</title>
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
@@ -13,12 +14,20 @@
   <div id="quotes"></div>
   <script type="text/babel">
     class QuoteList extends React.Component{
-  constructor()
-  {
+  constructor(){
     super();
     this.state={
       data: [],
+      currentPage: 1,
+      quotesPerPage: 15
     }
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+      handleClick(event) {
+        this.setState({
+          currentPage: Number(event.target.id)
+        });
   }
 
   componentDidMount()
@@ -33,15 +42,39 @@
   }
 
   render() {
-  const list = this.state.data.map((data, index) => {
-    return (
-      <li key={index}> { data.quote } </li>
-    )
-  })
+    const { data, currentPage, quotesPerPage } = this.state;
+
+    const indexOfLastQuote = currentPage * quotesPerPage;
+    const indexOfFirstQuote = indexOfLastQuote - quotesPerPage;
+    const currentQuotes = data.slice(indexOfFirstQuote, indexOfLastQuote);
+
+    const renderQuotes = currentQuotes.map((data, index) => {
+      return (
+        <li key={index}> { data.quote } </li>
+      )
+    })
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(data.length / quotesPerPage); i++) {
+      pageNumbers.push(i);
+    }
+
+    const renderPageNumbers = pageNumbers.map(number => {
+      return (
+        <li key={number} id={number} onClick={this.handleClick}>
+          {number}
+        </li>
+      );
+    });
+    
     return(
+      <div>  
         <ul>
-          { list }
-        </ul> 
+          { renderQuotes }
+        </ul>
+        <ul id="page-numbers">
+          {renderPageNumbers}
+        </ul>
+    </div> 
     )
   }
 }

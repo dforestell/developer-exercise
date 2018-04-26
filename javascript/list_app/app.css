@@ -1,0 +1,6 @@
+#page-numbers li{
+	display: inline;
+	padding: 5px;
+	color: blue;
+	border: 1px solid blue;
+}
