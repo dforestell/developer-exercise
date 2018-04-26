@@ -50,7 +50,7 @@
 
     const renderQuotes = currentQuotes.map((data, index) => {
       return (
-        <li key={index}> { data.quote } </li>
+        <li key={index}>Source: {data.source} Context: {data.context} Quote: { data.quote } Theme: {data.theme} </li>
       )
     })
     const pageNumbers = [];
