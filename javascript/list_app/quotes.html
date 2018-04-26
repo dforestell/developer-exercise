@@ -13,71 +13,70 @@
 <body>
   <div id="quotes"></div>
   <script type="text/babel">
-    class QuoteList extends React.Component{
-  constructor(){
-    super();
-    this.state={
-      data: [],
-      currentPage: 1,
-      quotesPerPage: 15
-    }
+  class QuoteList extends React.Component{
+    constructor(){
+      super();
+      this.state={
+        data: [],
+        currentPage: 1,
+        quotesPerPage: 15
+      }
     this.handleClick = this.handleClick.bind(this);
-  }
-
-      handleClick(event) {
-        this.setState({
-          currentPage: Number(event.target.id)
-        });
-  }
-
-  componentDidMount()
-  {
-    fetch('https://gist.githubusercontent.com/anonymous/8f61a8733ed7fa41c4ea/raw/1e90fd2741bb6310582e3822f59927eb535f6c73/quotes.json')
-    .then((response) => response.json())
-    .then((response)=>{
-      this.setState({
-        data:response,
-      })
-    })
-  }
-
-  render() {
-    const { data, currentPage, quotesPerPage } = this.state;
-
-    const indexOfLastQuote = currentPage * quotesPerPage;
-    const indexOfFirstQuote = indexOfLastQuote - quotesPerPage;
-    const currentQuotes = data.slice(indexOfFirstQuote, indexOfLastQuote);
-
-    const renderQuotes = currentQuotes.map((data, index) => {
-      return (
-        <li key={index}>Source: {data.source} Context: {data.context} Quote: { data.quote } Theme: {data.theme} </li>
-      )
-    })
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(data.length / quotesPerPage); i++) {
-      pageNumbers.push(i);
     }
 
-    const renderPageNumbers = pageNumbers.map(number => {
-      return (
-        <li key={number} id={number} onClick={this.handleClick}>
-          {number}
-        </li>
-      );
-    });
-    
-    return(
-      <div>  
-        <ul>
-          { renderQuotes }
-        </ul>
-        <ul id="page-numbers">
-          {renderPageNumbers}
-        </ul>
-    </div> 
-    )
+    handleClick(event) {
+      this.setState({
+        currentPage: Number(event.target.id)
+      });
+    }
+
+    componentDidMount(){
+      fetch('https://gist.githubusercontent.com/anonymous/8f61a8733ed7fa41c4ea/raw/1e90fd2741bb6310582e3822f59927eb535f6c73/quotes.json')
+      .then((response) => response.json())
+      .then((response)=>{
+        this.setState({
+          data:response,
+        })
+      })
+    }
+
+    render() {
+      const { data, currentPage, quotesPerPage } = this.state;
+
+      const indexOfLastQuote = currentPage * quotesPerPage;
+      const indexOfFirstQuote = indexOfLastQuote - quotesPerPage;
+      const currentQuotes = data.slice(indexOfFirstQuote, indexOfLastQuote);
+
+      const renderQuotes = currentQuotes.map((data, index) => {
+        return (
+          <li key={index}>Source: {data.source} Context: {data.context} Quote: { data.quote } Theme: {data.theme} </li>
+        )
+      })
+      const pageNumbers = [];
+      for (let i = 1; i <= Math.ceil(data.length / quotesPerPage); i++) {
+        pageNumbers.push(i);
+      }
+
+      const renderPageNumbers = pageNumbers.map(number => {
+        return (
+          <li key={number} id={number} onClick={this.handleClick}>
+            {number}
+          </li>
+        );
+      });
+      
+      return(
+        <div>  
+          <ul>
+            { renderQuotes }
+          </ul>
+          <ul id="page-numbers">
+            {renderPageNumbers}
+          </ul>
+      </div> 
+      )
+    }
   }
-}
 
     ReactDOM.render(
       <div>
