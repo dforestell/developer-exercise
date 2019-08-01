@@ -3,6 +3,7 @@
     <Search
       :getType="getType"
       :getAll="getAll"
+      :search="search"
      />
     <QuoteList
       :displayedQuotes="currentQuotes.slice(indexOfFirstQuote, indexOfLastQuote)"
@@ -35,7 +36,7 @@ export default {
       quotesPerPage: 15,
       indexOfFirstQuote: 0,
       indexOfLastQuote: 15,
-      pageNumbers: []
+      pageNumbers: [],
     }
   },
   methods: {
@@ -56,6 +57,12 @@ export default {
     },
     getAll(){
       this.currentQuotes = this.quotes
+    },
+    search(searchText){
+      console.log("in the search")
+      console.log(searchText)
+      this.currentQuotes = this.quotes.filter(quote => quote.quote.includes(searchText));
+      this.getPageNumbers()
     }
   },
   mounted: function(){
