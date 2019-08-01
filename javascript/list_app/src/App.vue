@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Search />
-    <QuoteList />
+    <QuoteList
+      :displayedQuotes="currentQuotes.slice(indexOfFirstQuote, indexOfLastQuote)"
+    />
 
   </div>
 </template>
@@ -23,7 +25,7 @@ export default {
       currentPage: 1,
       quotesPerPage: 15,
       indexOfFirstQuote: 0,
-      indexOfLastQuote: 14,
+      indexOfLastQuote: 15,
     }
   },
   mounted: function(){
