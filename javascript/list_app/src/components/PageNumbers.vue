@@ -1,9 +1,10 @@
 <template>
   <div>
-    <ul
-      v-for="pageNumber in pageNumbers"
-    >
-      <li @click="changePage(pageNumber)">{{pageNumber}}</li>
+    <ul>
+      <li
+        v-for="pageNumber in pageNumbers"
+        @click="changePage(pageNumber)">{{pageNumber}}
+      </li>
     </ul>
   </div>
 </template>
@@ -31,4 +32,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
+  ul li{
+    display: inline;
+    padding: 10px;
+  }
 </style>

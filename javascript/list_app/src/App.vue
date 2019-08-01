@@ -8,13 +8,7 @@
     <QuoteList
       :displayedQuotes="currentQuotes.slice(indexOfFirstQuote, indexOfLastQuote)"
     />
-    <!-- <ul
-      v-for="pageNumber in pageNumbers"
-      @click="changePage(pageNumber)"
-    >
-      <li>{{pageNumber}}</li>
-    </ul> -->
-
+    
     <PageNumbers
       :pages="pages"
       :changePage="changePage"
@@ -43,7 +37,6 @@ export default {
       quotesPerPage: 15,
       indexOfFirstQuote: 0,
       indexOfLastQuote: 15,
-      pageNumbers: [],
     }
   },
   computed: {
@@ -83,7 +76,6 @@ export default {
     .then((jsonData) => {
       this.quotes = jsonData
       this.currentQuotes = jsonData
-      this.getPageNumbers()
     })
   }
 }
