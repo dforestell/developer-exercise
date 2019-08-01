@@ -1,14 +1,17 @@
 <template>
   <div>
-    <button>All Quotes</button>
-    <button>Movies</button>
-    <button>Games</button>
-    <input type="text" name="" value="">
+    <button @click="getAll()">All Quotes</button>
+    <button @click="getType('movies')">Movies</button>
+    <button @click="getType('games')">Games</button>
+    <input type="text">
   </div>
 
 </template>
 
 <script>
 export default {
+  props: {
+    getType: Function
+  }
 }
 </script>

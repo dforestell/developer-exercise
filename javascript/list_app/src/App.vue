@@ -1,9 +1,18 @@
 <template>
   <div id="app">
-    <Search />
+    <Search
+      :getType="getType"
+      :getAll="getAll"
+     />
     <QuoteList
       :displayedQuotes="currentQuotes.slice(indexOfFirstQuote, indexOfLastQuote)"
     />
+    <ul
+      v-for="pageNumber in pageNumbers"
+      @click="changePage(pageNumber)"
+    >
+      <li>{{pageNumber}}</li>
+    </ul>
 
   </div>
 </template>
@@ -26,6 +35,27 @@ export default {
       quotesPerPage: 15,
       indexOfFirstQuote: 0,
       indexOfLastQuote: 15,
+      pageNumbers: []
+    }
+  },
+  methods: {
+    getPageNumbers(){
+      this.pageNumbers = []
+      for (let i = 1; i <= Math.ceil(this.currentQuotes.length / this.quotesPerPage); i++) {
+        this.pageNumbers.push(i);
+      }
+    },
+    changePage(pageNumber){
+      this.currentPage = pageNumber
+      this.indexOfLastQuote = pageNumber * this.quotesPerPage
+      this.indexOfFirstQuote = this.indexOfLastQuote - this.quotesPerPage
+    },
+    getType(type){
+      this.currentQuotes =  this.quotes.filter(quote => quote.theme === type)
+      this.getPageNumbers()
+    },
+    getAll(){
+      this.currentQuotes = this.quotes
     }
   },
   mounted: function(){
@@ -36,6 +66,7 @@ export default {
     .then((jsonData) => {
       this.quotes = jsonData
       this.currentQuotes = jsonData
+      this.getPageNumbers()
     })
   }
 }
