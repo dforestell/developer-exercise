@@ -7,7 +7,6 @@
     Theme : {{quote.theme}}<br>
     {{ quote.quote }}
   </p>
-    <p>page numbers</p>
   </div>
 </template>
 

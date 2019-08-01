@@ -8,12 +8,17 @@
     <QuoteList
       :displayedQuotes="currentQuotes.slice(indexOfFirstQuote, indexOfLastQuote)"
     />
-    <ul
+    <!-- <ul
       v-for="pageNumber in pageNumbers"
       @click="changePage(pageNumber)"
     >
       <li>{{pageNumber}}</li>
-    </ul>
+    </ul> -->
+
+    <PageNumbers
+      :pages="pages"
+      :changePage="changePage"
+    />
 
   </div>
 </template>
@@ -21,12 +26,14 @@
 <script>
 import QuoteList from './components/QuoteList.vue'
 import Search from './components/Search.vue'
+import PageNumbers from './components/PageNumbers.vue'
 
 export default {
   name: 'app',
   components: {
     QuoteList,
     Search,
+    PageNumbers
   },
   data(){
     return{
@@ -39,30 +46,33 @@ export default {
       pageNumbers: [],
     }
   },
+  computed: {
+    pages(){
+      return Math.ceil(this.currentQuotes.length / this.quotesPerPage)
+    }
+  },
   methods: {
-    getPageNumbers(){
-      this.pageNumbers = []
-      for (let i = 1; i <= Math.ceil(this.currentQuotes.length / this.quotesPerPage); i++) {
-        this.pageNumbers.push(i);
-      }
-    },
     changePage(pageNumber){
       this.currentPage = pageNumber
       this.indexOfLastQuote = pageNumber * this.quotesPerPage
       this.indexOfFirstQuote = this.indexOfLastQuote - this.quotesPerPage
     },
     getType(type){
+      this.reset()
       this.currentQuotes =  this.quotes.filter(quote => quote.theme === type)
-      this.getPageNumbers()
     },
     getAll(){
+      this.reset()
       this.currentQuotes = this.quotes
     },
     search(searchText){
-      console.log("in the search")
-      console.log(searchText)
       this.currentQuotes = this.quotes.filter(quote => quote.quote.includes(searchText));
-      this.getPageNumbers()
+      this.reset()
+    },
+    reset(){
+      this.currentPage = 1
+      this.indexOfFirstQuote = 0
+      this.indexOfLastQuote = 15
     }
   },
   mounted: function(){
